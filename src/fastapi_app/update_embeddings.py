@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 EMBEDDING_FIELDS = [
     'package_name', 'package_picture', 'url', 'installment_month', 'installment_limit',
-    'price_to_reserve_for_this_package', 'shop_name', 'category', 'category_tags',
+    'shop_name', 'category', 'category_tags',
     'preview_1_10', 'selling_point', 'meta_keywords', 'brand', 'min_max_age',
     'locations', 'meta_description','price_details', 'package_details', 'important_info',
     'payment_booking_info', 'general_info', 'early_signs_for_diagnosis', 'how_to_diagnose',
@@ -57,9 +57,9 @@ async def update_embeddings():
                                     embedding_dimensions=openai_embed_dimensions,
                                 )
                                 setattr(item, f'embedding_{field}', embedding)
-                                logger.info(f"Updated embedding for {field} of item {item.id}")
+                                logger.info(f"Updated embedding for {field} of item {item.url}")
                             except Exception as e:
-                                logger.error(f"Error updating embedding for {field} of item {item.id}: {e}")
+                                logger.error(f"Error updating embedding for {field} of item {item.url}: {e}")
 
                 session.add(item)
             await session.commit()

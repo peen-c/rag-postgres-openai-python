@@ -73,7 +73,7 @@ class AdvancedRAGChat:
             filters=filters,
         )
 
-        sources_content = [f"[{(item.id)}]:{item.to_str_for_broad_rag()}\n\n" for item in results]
+        sources_content = [f"[{(item.url)}]:{item.to_str_for_broad_rag()}\n\n" for item in results]
 
         thought_steps = [
             ThoughtStep(
@@ -134,7 +134,7 @@ class AdvancedRAGChat:
             results = await self.searcher.simple_sql_search(filters=specify_package_filters)
 
             if results:
-                sources_content = [f"[{(item.id)}]:{item.to_str_for_narrow_rag()}\n\n" for item in results]
+                sources_content = [f"[{(item.url)}]:{item.to_str_for_narrow_rag()}\n\n" for item in results]
 
                 thought_steps = [
                     ThoughtStep(

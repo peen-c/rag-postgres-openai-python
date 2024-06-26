@@ -54,7 +54,6 @@ class PostgresSearcher:
                         COALESCE(embedding_url <=> :embedding, 1),
                         COALESCE(embedding_installment_month <=> :embedding, 1),
                         COALESCE(embedding_installment_limit <=> :embedding, 1),
-                        COALESCE(embedding_price_to_reserve_for_this_package <=> :embedding, 1),
                         COALESCE(embedding_shop_name <=> :embedding, 1),
                         COALESCE(embedding_category <=> :embedding, 1),
                         COALESCE(embedding_category_tags <=> :embedding, 1),
@@ -107,7 +106,6 @@ class PostgresSearcher:
                 to_tsvector('thai', COALESCE(url, '')) ||
                 to_tsvector('thai', COALESCE(installment_month, '')) ||
                 to_tsvector('thai', COALESCE(installment_limit, '')) ||
-                to_tsvector('thai', COALESCE(price_to_reserve_for_this_package, '')) ||
                 to_tsvector('thai', COALESCE(shop_name, '')) ||
                 to_tsvector('thai', COALESCE(category, '')) ||
                 to_tsvector('thai', COALESCE(category_tags, '')) ||
@@ -145,7 +143,6 @@ class PostgresSearcher:
                 to_tsvector('thai', COALESCE(url, '')) ||
                 to_tsvector('thai', COALESCE(installment_month, '')) ||
                 to_tsvector('thai', COALESCE(installment_limit, '')) ||
-                to_tsvector('thai', COALESCE(price_to_reserve_for_this_package, '')) ||
                 to_tsvector('thai', COALESCE(shop_name, '')) ||
                 to_tsvector('thai', COALESCE(category, '')) ||
                 to_tsvector('thai', COALESCE(category_tags, '')) ||
@@ -183,7 +180,6 @@ class PostgresSearcher:
                 to_tsvector('thai', COALESCE(url, '')) ||
                 to_tsvector('thai', COALESCE(installment_month, '')) ||
                 to_tsvector('thai', COALESCE(installment_limit, '')) ||
-                to_tsvector('thai', COALESCE(price_to_reserve_for_this_package, '')) ||
                 to_tsvector('thai', COALESCE(shop_name, '')) ||
                 to_tsvector('thai', COALESCE(category, '')) ||
                 to_tsvector('thai', COALESCE(category_tags, '')) ||

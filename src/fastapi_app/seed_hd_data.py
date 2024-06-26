@@ -22,7 +22,7 @@ logger = logging.getLogger("ragapp")
 embedding_fields = [
     'embedding_package_name', 'embedding_package_picture', 'embedding_url', 
     'embedding_installment_month', 'embedding_installment_limit', 
-    'embedding_price_to_reserve_for_this_package', 'embedding_shop_name', 
+    'embedding_shop_name', 
     'embedding_category', 'embedding_category_tags', 'embedding_preview_1_10', 
     'embedding_selling_point', 'embedding_meta_keywords', 'embedding_brand', 
     'embedding_min_max_age', 'embedding_locations', 'embedding_meta_description', 
@@ -88,9 +88,9 @@ async def seed_data(engine):
         logger.info("Starting to insert records into the database...")
         for record in tqdm(records, desc="Inserting records"):
             try:
-                record["id"] = convert_to_int(record["id"])
-                if record["id"] is None:
-                    logger.error(f"Skipping record with invalid id: {record}")
+                record["url"] = convert_to_int(record["url"])
+                if record["url"] is None:
+                    logger.error(f"Skipping record with invalid url: {record}")
                     continue
                 
                 if "price" in record:
@@ -104,7 +104,7 @@ async def seed_data(engine):
                     logger.error(f"Skipping record with invalid numeric fields: {record}")
                     continue
 
-                item = await session.execute(select(Item).filter(Item.id == record["id"]))
+                item = await session.execute(select(Item).filter(Item.url == record["url"]))
                 if item.scalars().first():
                     continue
 
@@ -114,14 +114,14 @@ async def seed_data(engine):
                     item_data[field] = None
 
                 for key, value in item_data.items():
-                    if key not in ["id", "price", "cash_discount", "brand_ranking_position"]:
+                    if key not in ["price", "cash_discount", "brand_ranking_position"]:
                         item_data[key] = convert_to_str(value)
 
                 item = Item(**item_data)
                 session.add(item)
 
             except Exception as e:
-                logger.error(f"Error inserting record with id {record['id']}: {e}")
+                logger.error(f"Error inserting record with url {record['url']}: {e}")
                 await session.rollback()
                 continue
 
